@@ -1,4 +1,5 @@
 package entidade;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -6,85 +7,68 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="conta")
+@Table(name="movimentacao")
 public class Conta {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "valor_operacao")
-	private Double valorOperacao;
-	@Column(name = "data_transacao")
+	@Column(name = "data_criacao")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataTransacao=new Date();	
-	@Column(name = "descricao", length = 150, nullable = true, unique = false) 
-	private String descricao;
-	@Column(name = "tipo_transacao")
-	private String tipoTransacao;
-	@Column(name = "nome_Correntista")
-	private String nomeCorrentista;
-	@Column(name = "cpf_Correntista")
-	private String cpfCorrentista;
+	private Date dataCriacao=new Date();	
+	@Column(name = "numero_conta", nullable = false)//, unique = false) 
+	private String numeroConta;
+	@Column(name = "tipo_conta")
+	private String tipoConta;
+	@Column(name = "conta_ativa")
+	private boolean contaAtiva;
 	
+	@ManyToOne
+	@JoinColumn(name="cliente_id") //opcional, mas coloquei pra não esquecer o que faz
+	private Cliente cliente;
 	
 	public Long getId() {
 		return id;
 	}
-	
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	public double getValor() {
-		return valorOperacao;
+	public Date getDataCriacao() {
+		return dataCriacao;
 	}
-	public void setValor(double valor) {
-		this.valorOperacao = valor;
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
-	public Date getDataTransacao() {
-		return dataTransacao;
+	public String getNumeroConta() {
+		return numeroConta;
 	}
-	public void setDataTransacao(Date dataTransacao) {
-		this.dataTransacao = dataTransacao;
+	public void setNumeroConta(String numeroConta) {
+		this.numeroConta = numeroConta;
 	}
-	public String getDescricao() {
-		return descricao;
+	public String getTipoConta() {
+		return tipoConta;
 	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setTipoConta(String tipoConta) {
+		this.tipoConta = tipoConta;
 	}
-	public String getTipoTransacao() {
-		return tipoTransacao;
+	public boolean isContaAtiva() {
+		return contaAtiva;
 	}
-	public void setTipoTransacao(String tipoTransacao) {
-		this.tipoTransacao = tipoTransacao;
-	}
-	public String getNomeCorrentista() {
-		return nomeCorrentista;
-	}
-	public void setNomeCorrentista(String nomeCorrentista) {
-		this.nomeCorrentista = nomeCorrentista;
-	}
-	public String getCpfCorrentista() {
-		return cpfCorrentista;
-	}
-	public void setCpfCorrentista(String cpfCorrentista) {
-		this.cpfCorrentista = cpfCorrentista;
+	public void setContaAtiva(boolean contaAtiva) {
+		this.contaAtiva = contaAtiva;
 	}
 	
-	@Override
-	public String toString() {
-		String dadosConta = "\nId: "+this.id+"\nNome do Correntista: "+this.nomeCorrentista+"\nCpf do Correntista: "+this.cpfCorrentista+"\nTipo de Transação: "+this.tipoTransacao+"\nValor da operação: R$"+this.valorOperacao+"\nData da operação: "+this.dataTransacao+"\nDescrição: "+this.descricao;
-		return dadosConta;
+	public Cliente getCliente() {
+		return cliente;
 	}
 	
-	public String toStringExtrato() {
-		String extrato = "\nTipo de Transação: "+this.tipoTransacao+" às "+this.dataTransacao+"\nNo valor de: R$"+this.valorOperacao;
-		return extrato;
-	}
+
+	
 }

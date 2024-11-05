@@ -2,16 +2,16 @@ package controle;
 
 import java.text.ParseException;
 
-import entidade.Conta;
-import servico.ContaService;
+import entidade.Movimentacao;
+import servico.MovimentacaoService;
 
-public class ContaControler {
+public class MovimentacaoController {
 	
-	ContaService service = new ContaService();
+	MovimentacaoService service = new MovimentacaoService();
 	
 	
-	public Conta inserir(Conta conta) {
-		return service.inserir(conta);
+	public Movimentacao inserir(Movimentacao movimentacao) {
+		return service.inserir(movimentacao);
 	}
 	
 	public void exibirExtratoMensal(String cpf, int op) {
@@ -22,7 +22,7 @@ public class ContaControler {
 		service.ExibirExtratoPeriodico(cpf, dataInicial, dataFinal, op);
 	}
 	
-	public Conta transferencia(Conta pag, Conta rec) {
+	public Movimentacao transferencia(Movimentacao pag, Movimentacao rec) {
 		return service.transferencia(pag, rec);
 	}
 }

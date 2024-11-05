@@ -21,16 +21,21 @@ public class ClienteDAO {
 		return null;
 	}
 	
-	public Cliente alterar(Cliente cliente) {
+	public Cliente alterar(Long idCliente, Cliente mesmoCliente) {
 		Cliente clienteNovo = null;
-		if(cliente.getId()!=null) {
+		if(idCliente!=null) {
 			EntityManager em = emf.createEntityManager();
 			em.getTransaction().begin();
 			
-			clienteNovo = buscarPorId(cliente.getId());
+			clienteNovo = buscarPorId(idCliente);
 			
 			if(clienteNovo.getId()!=null) {
-				//clienteNovo.setDescricao(cliente.getDescricao());
+				clienteNovo.setCpfCliente(mesmoCliente.getCpfCliente());
+				clienteNovo.setEmail(mesmoCliente.getEmail());
+				clienteNovo.setNomeCliente(mesmoCliente.getNomeCliente());
+				clienteNovo.setRgCliente(mesmoCliente.getRgCliente());
+				clienteNovo.setTelefone(mesmoCliente.getTelefone());
+				clienteNovo.setDataAlteracao(mesmoCliente.getDataAlteracao());
 				em.merge(clienteNovo);
 			}
 			em.getTransaction().commit();
@@ -42,22 +47,36 @@ public class ClienteDAO {
 	public void excluir(Long id) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-		Conta conta = buscarPorId(id);
-		Conta contaMerge = em.merge(conta);
-		if(conta != null) {
-			em.remove(contaMerge);
+		Cliente cliente = buscarPorId(id);
+		Cliente clienteMerge = em.merge(cliente);
+		if(cliente != null) {
+			em.remove(clienteMerge);
 		}
 		em.getTransaction().commit();
 		em.close();
 	}
 	
-	public List<Conta> listarTodos(){
+	public List<Cliente> listarTodos(){
 		EntityManager em = emf.createEntityManager();
 		//hql: hibernate query language
-		List<Conta> contas = em.createQuery("from Conta").getResultList();
+		List<Cliente> clientes = em.createQuery("from Cliente").getResultList();
 		em.close();
-		return contas;
+		return clientes;
 	}
 	
+	public Cliente buscarPorCpf(String cpf){
+		EntityManager em = emf.createEntityManager();
+		//hql: hibernate query language
+		Query query = em.createQuery("from Cliente where cpfCliente ='"+cpf+"'");
+		Cliente cliente = (Cliente) query.getSingleResult();
+		em.close();
+		return cliente;
+	}
 	
+	public Cliente buscarPorId(Long id) {
+		EntityManager em = emf.createEntityManager();
+		Cliente cliente = em.find(Cliente.class, id);
+		em.close();
+		return cliente;		
+	}
 }
