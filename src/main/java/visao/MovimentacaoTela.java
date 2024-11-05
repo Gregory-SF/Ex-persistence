@@ -10,9 +10,9 @@ public class MovimentacaoTela {
 	public static void main(String[] args) throws ParseException {
 		MovimentacaoController controle = new MovimentacaoController();
 		Movimentacao movimentacao = new Movimentacao();
-		movimentacao.setCpfCorrentista("032.274.815-10");
+		//movimentacao.setCpfCorrentista("");
 		movimentacao.setDescricao("pagar de 13,00 no dia 10/10/24");
-		movimentacao.setNomeCorrentista("Laryssa");
+		//movimentacao.setNomeCorrentista("");
 		movimentacao.setTipoTransacao("Saque");
 		movimentacao.setValor(10.);
 
