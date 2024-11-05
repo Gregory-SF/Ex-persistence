@@ -69,6 +69,10 @@ public class Conta {
 		return cliente;
 	}
 	
-
+	@Override
+	public String toString() {
+		String dadosCliente = "\nId: "+this.id+"\nNúmero da Conta: "+this.numeroConta+"\nTipo da Conta: "+this.tipoConta+"\nConta está ativa: "+this.contaAtiva+"\nData da criação: "+this.dataCriacao+"\nId do cliente que se refere: "+this.cliente.getId();
+		return dadosCliente;
+	}
 	
 }

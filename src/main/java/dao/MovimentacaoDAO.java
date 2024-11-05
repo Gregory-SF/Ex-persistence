@@ -24,30 +24,30 @@ public class MovimentacaoDAO {
 	}
 	
 	public Movimentacao alterar(Movimentacao movimentacao) {
-		Movimentacao contaBanco = null;
+		Movimentacao novaMovimentacao = null;
 		if(movimentacao.getId()!=null) {
 			EntityManager em = emf.createEntityManager();
 			em.getTransaction().begin();
 			
-			contaBanco = buscarPorId(movimentacao.getId());
+			novaMovimentacao = buscarPorId(movimentacao.getId());
 			
-			if(contaBanco.getId()!=null) {
-				contaBanco.setDescricao(movimentacao.getDescricao());
-				em.merge(contaBanco);
+			if(novaMovimentacao.getId()!=null) {
+				novaMovimentacao.setDescricao(movimentacao.getDescricao());
+				em.merge(novaMovimentacao);
 			}
 			em.getTransaction().commit();
 			em.close();
 		}
-		return contaBanco;
+		return novaMovimentacao;
 	}
 	
 	public void excluir(Long id) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		Movimentacao movimentacao = buscarPorId(id);
-		Movimentacao contaMerge = em.merge(movimentacao);
+		Movimentacao movimentacaoMerge = em.merge(movimentacao);
 		if(movimentacao != null) {
-			em.remove(contaMerge);
+			em.remove(movimentacaoMerge);
 		}
 		em.getTransaction().commit();
 		em.close();
