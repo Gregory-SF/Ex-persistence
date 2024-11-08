@@ -22,21 +22,26 @@ public class ContaDAO {
 		return null;
 	}
 	
-	public Conta alterar(Conta conta) {
+	public Conta alterar(Long idConta, Conta mesmaConta) {
 		Conta contaBanco = null;
-		if(conta.getId()!=null) {
+		if(idConta!=null) {
 			EntityManager em = emf.createEntityManager();
 			em.getTransaction().begin();
 			
-			contaBanco = buscarPorId(conta.getId());
+			contaBanco = buscarPorId(idConta);
 			
 			if(contaBanco.getId()!=null) {
+				contaBanco.setTipoConta(mesmaConta.getTipoConta());
+				contaBanco.setContaAtiva(mesmaConta.isContaAtiva());
+				contaBanco.setNumeroConta(mesmaConta.getNumeroConta());
+				contaBanco.setDataAlteracao(mesmaConta.getDataAlteracao());
 				em.merge(contaBanco);
 			}
 			em.getTransaction().commit();
 			em.close();
 		}
 		return contaBanco;
+				
 	}
 	
 	public void excluir(Long id) {
@@ -65,5 +70,13 @@ public class ContaDAO {
 		em.close();
 		return contas;
 	}
-
+	
+//	public List<Conta> buscarPorCpf(String cpf){
+//		EntityManager em = emf.createEntityManager();
+//		//hql: hibernate query language
+//		Query query = em.createQuery("from Conta where cpfCorrentista='"+cpf+"'");
+//		List<Conta> movimentacaos = query.getResultList();
+//		em.close();
+//		return movimentacaos;
+//	}
 }

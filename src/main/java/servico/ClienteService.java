@@ -14,14 +14,14 @@ public class ClienteService {
 	
 	public Cliente alterar(Cliente cliente) {
 		if(!validarDadosIguaisCliente(cliente)) throw new Error ("\nDados não correspondem a nenhum cliente existente");
-		return dao.alterar(buscarIdPeloCPf(cliente),cliente);
+		return dao.alterar(buscarIdPeloCpf(cliente),cliente);
 	}
 	
 	public void excluir(Cliente cliente) {
-		dao.excluir(buscarIdPeloCPf(cliente));
+		dao.excluir(buscarIdPeloCpf(cliente));
 	}
 	
-	private Long buscarIdPeloCPf(Cliente cliente) {
+	private Long buscarIdPeloCpf(Cliente cliente) {
 		if(!validarDadosIguaisCliente(cliente)) throw new Error ("\nDados não correspondem a nenhum cliente existente");
 		return dao.buscarPorCpf(cliente.getCpfCliente()).getId();
 	}

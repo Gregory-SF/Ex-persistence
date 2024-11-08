@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="movimentacao")
+@Table(name="conta")
 public class Conta {
 
 	@Id
@@ -26,12 +28,16 @@ public class Conta {
 	@Column(name = "numero_conta", nullable = false)//, unique = false) 
 	private String numeroConta;
 	@Column(name = "tipo_conta")
-	private String tipoConta;
+	@Enumerated(EnumType.STRING)
+	private ContaTipo tipoConta;
 	@Column(name = "conta_ativa")
 	private boolean contaAtiva;
+	@Column(name = "data_Alteracao")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataAlteracao = new Date();	
 	
 	@ManyToOne
-	@JoinColumn(name="cliente_id") //opcional, mas coloquei pra não esquecer o que faz
+	@JoinColumn(name="id_cliente") //opcional, mas coloquei pra não esquecer o que faz
 	private Cliente cliente;
 	
 	public Long getId() {
@@ -52,11 +58,11 @@ public class Conta {
 	public void setNumeroConta(String numeroConta) {
 		this.numeroConta = numeroConta;
 	}
-	public String getTipoConta() {
+	public ContaTipo getTipoConta() {
 		return tipoConta;
 	}
-	public void setTipoConta(String tipoConta) {
-		this.tipoConta = tipoConta;
+	public void setTipoConta(ContaTipo contaTipo) {
+		this.tipoConta = contaTipo;
 	}
 	public boolean isContaAtiva() {
 		return contaAtiva;
@@ -64,15 +70,30 @@ public class Conta {
 	public void setContaAtiva(boolean contaAtiva) {
 		this.contaAtiva = contaAtiva;
 	}
+	public Date getDataAlteracao() {
+		return dataAlteracao;
+	}
+	public void setDataAlteracao(Date dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
+	}
 	
 	public Cliente getCliente() {
 		return cliente;
 	}
 	
-	@Override
-	public String toString() {
-		String dadosCliente = "\nId: "+this.id+"\nNúmero da Conta: "+this.numeroConta+"\nTipo da Conta: "+this.tipoConta+"\nConta está ativa: "+this.contaAtiva+"\nData da criação: "+this.dataCriacao+"\nId do cliente que se refere: "+this.cliente.getId();
-		return dadosCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	
+	@Override
+	public String toString() {
+		String dadosConta = "\nId: "+this.id+"\nNúmero da Conta: "+this.numeroConta+"\nTipo da Conta: "+this.tipoConta+"\nConta está ativa: "+this.contaAtiva+"\nData da criação: "+this.dataCriacao+"\nData de alteração: "+this.dataAlteracao+"\nId do cliente que se refere: "+this.cliente.getId();
+		return dadosConta;
+	}
+	
+//	public boolean equals(Conta outroConta) {
+//		if (this == outroConta) return true;
+//		if(outroConta == null) return false;
+//		return nomeCliente.equalsIgnoreCase(outroCliente.getNomeCliente()) && cpfCliente.equalsIgnoreCase(outroCliente.getCpfCliente()) && rgCliente.equalsIgnoreCase(outroCliente.getRgCliente());
+//	}
 }

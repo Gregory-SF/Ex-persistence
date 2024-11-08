@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,12 +31,9 @@ public class Cliente {
 	private String email;
 	@Column(name = "data_Alteracao")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataAlteracao =new Date();	
+	private Date dataAlteracao = new Date();	
 	@Column(name = "telefone", length = 10, nullable = true) 
 	private String telefone;
-	
-	@OneToMany(mappedBy = "cliente")
-	private Conta conta;
 	
 	public Long getId() {
 		return id;
@@ -87,14 +83,11 @@ public class Cliente {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	public Conta getConta() {
-		return conta;
-	}
 	
 	@Override
 	public String toString() {
-		String dadosConta = "\nId: "+this.id+"\nNome do Correntista: "+this.nomeCliente+"\nCpf do Correntista: "+this.cpfCliente+"\nRg do Correntista: "+this.rgCliente+"\nData da criação: "+this.dataCriacao+"\nEmail do Correntista: "+this.email+"\nÚltima alteração: "+this.dataAlteracao+"\nTelefone do Correntista: "+this.telefone;
-		return dadosConta;
+		String dadosCliente = "\nId: "+this.id+"\nNome do Correntista: "+this.nomeCliente+"\nCpf do Correntista: "+this.cpfCliente+"\nRg do Correntista: "+this.rgCliente+"\nData da criação: "+this.dataCriacao+"\nEmail do Correntista: "+this.email+"\nÚltima alteração: "+this.dataAlteracao+"\nTelefone do Correntista: "+this.telefone;
+		return dadosCliente;
 	}
 	
 	public boolean equals(Cliente outroCliente) {

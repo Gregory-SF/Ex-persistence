@@ -8,7 +8,7 @@ import javax.persistence.Query;
 
 import entidade.Cliente;
 
-public class ClienteDAO {
+public class ClienteDAO{ //extends AbstractDAO{
 		
 	EntityManagerFactory emf = Persistence.createEntityManagerFactory("bancoPU");
 	
@@ -18,7 +18,7 @@ public class ClienteDAO {
 		em.persist(cliente);
 		em.getTransaction().commit();
 		em.close();
-		return null;
+		return cliente;
 	}
 	
 	public Cliente alterar(Long idCliente, Cliente mesmoCliente) {
@@ -29,8 +29,7 @@ public class ClienteDAO {
 			
 			clienteNovo = buscarPorId(idCliente);
 			
-			if(clienteNovo.getId()!=null) {
-				clienteNovo.setCpfCliente(mesmoCliente.getCpfCliente());
+			if(clienteNovo.getId()!=null) { //teoricamente, como eu já vou fornecer um id q exista no param, então não precisaria desse if. DEPOIS REVER
 				clienteNovo.setEmail(mesmoCliente.getEmail());
 				clienteNovo.setNomeCliente(mesmoCliente.getNomeCliente());
 				clienteNovo.setRgCliente(mesmoCliente.getRgCliente());
