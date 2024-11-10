@@ -29,18 +29,25 @@ public class ContaService {
 	private Long validarDadosIguaisConta(Conta conta) {
 		//opção 1
 		if(!validarDadosIguaisContaCliente(conta)) throw new Error("Não existe um cliente com essas informações");
+		//if(!conta.)
 		//return clienteDAO.buscarPorCpf(conta.getCliente().getCpfCliente());
 		return conta.getId();
 	}
 	
 	private boolean validarDadosIguaisContaCliente(Conta conta) {
-		ClienteDAO clienteDAO = new ClienteDAO();
-		if(!conta.getCliente().equals(clienteDAO.buscarPorCpf(conta.getCliente().getCpfCliente()))) return false;
+		if(!conta.getCliente().equals(clientedao.buscarPorCpf(conta.getCliente().getCpfCliente()))) return false;
 		return true;
 	}
 	
-	private void buscarPorCpf(String cpf, Conta conta) {
-		conta.setCliente(clientedao.buscarPorCpf(cpf));
+	private boolean buscarPorCpf(String cpf, Conta conta) {
+		try {
+			conta.setCliente(clientedao.buscarPorCpf(cpf));
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+			//throw new Error ("Não existe cliente com esse cpf");
+		}
 	}
 	
 }

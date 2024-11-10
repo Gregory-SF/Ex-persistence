@@ -19,6 +19,7 @@ public class ClienteController {
 	public Cliente alterar(Cliente cliente) {
 		return service.alterar(cliente);
 	}
+	
 }
 
 

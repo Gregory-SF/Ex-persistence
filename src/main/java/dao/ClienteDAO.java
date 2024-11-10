@@ -63,13 +63,17 @@ public class ClienteDAO{ //extends AbstractDAO{
 		return clientes;
 	}
 	
+	//verificar com o prof se eu posso tratar os erros do dao no própio dao
 	public Cliente buscarPorCpf(String cpf){
 		EntityManager em = emf.createEntityManager();
-		//hql: hibernate query language
-		Query query = em.createQuery("from Cliente where cpfCliente ='"+cpf+"'");
-		Cliente cliente = (Cliente) query.getSingleResult();
-		em.close();
-		return cliente;
+		//try {
+			Query query = em.createQuery("from Cliente where cpfCliente ='"+cpf+"'");
+			Cliente cliente = (Cliente) query.getSingleResult();
+			em.close();
+			return cliente;			
+		//} catch (Exception e) {
+		//	throw new Error("Não existe cliente com esse cpf");
+		//}
 	}
 	
 	public Cliente buscarPorId(Long id) {
