@@ -91,9 +91,9 @@ public class Conta {
 		return dadosConta;
 	}
 	
-//	public boolean equals(Conta outroConta) {
-//		if (this == outroConta) return true;
-//		if(outroConta == null) return false;
-//		return nomeCliente.equalsIgnoreCase(outroCliente.getNomeCliente()) && cpfCliente.equalsIgnoreCase(outroCliente.getCpfCliente()) && rgCliente.equalsIgnoreCase(outroCliente.getRgCliente());
-//	}
+	public boolean equals(Conta outraConta) {
+		if (this == outraConta) return true;
+		if(outraConta == null) return false;
+		return id==outraConta.id && numeroConta == outraConta.numeroConta && contaAtiva==outraConta.contaAtiva && cliente.equals(outraConta.cliente);
+	}
 }

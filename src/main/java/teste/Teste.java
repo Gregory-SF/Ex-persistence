@@ -7,16 +7,22 @@ import java.util.Date;
 
 import entidade.Cliente;
 import servico.ClienteService;
+import servico.ContaService;
+import servico.MovimentacaoService;
 import dao.ClienteDAO;
+import dao.ContaDAO;
 import dao.MovimentacaoDAO;
 import util.FormatarData;
 import util.ValidacaoCpf;
 
 public class Teste {
 	public static void main(String[] args) throws ParseException {
-//		Cliente cliente = new Cliente();
-//		ClienteDAO cldao = new ClienteDAO();
-//		ClienteService clser = new ClienteService();
+		//Cliente cliente = new Cliente();
+		//ContaDAO condao = new ContaDAO();
+		MovimentacaoDAO movdao = new MovimentacaoDAO();
+		System.out.println(movdao.buscarSaldoContaPoupanca(1L));
+//		MovimentacaoService movser = new MovimentacaoService();
+		System.out.println(movdao.buscarSaldo(1L));
 //		cliente.setCpfCliente("121.825.897-37");
 //		if(ValidacaoCpf.validarCpf(cliente.getCpfCliente()));
 //		//cldao.buscarPorCpf(cliente.getCpfCliente());
@@ -37,8 +43,9 @@ public class Teste {
 //		clienteNovo.setEmail("gregory16704@gmail.com");	
 //		clienteNovo.setRgCliente("1234");	
 //		clienteNovo.setTelefone("98765");	
-		MovimentacaoDAO movdao = new MovimentacaoDAO();
-		System.out.println(movdao.buscarSaldo(1L));
-	
+//		MovimentacaoDAO movdao = new MovimentacaoDAO();
+//		System.out.println(movdao.buscarSaldo(1L));
+		//cliente.setDataAlteracao(FormatarData.formatarMesAnterior("2024-12-01"));
+		//System.out.println(FormatarData.formatarMesPosterior(data));
 	}
 }

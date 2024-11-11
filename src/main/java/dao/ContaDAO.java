@@ -71,12 +71,21 @@ public class ContaDAO {
 		return contas;
 	}
 	
-//	public List<Conta> buscarPorCpf(String cpf){
-//		EntityManager em = emf.createEntityManager();
-//		//hql: hibernate query language
-//		Query query = em.createQuery("from Conta where cpfCorrentista='"+cpf+"'");
-//		List<Conta> movimentacaos = query.getResultList();
-//		em.close();
-//		return movimentacaos;
-//	}
+	/**
+	 * Função que retorna a quantidade de contas por cliente
+	 * 
+	 * @param Long id_cliente
+	 * 
+	 * @return integer
+	 *  
+	 * */
+	public int verificarContasPorCliente(Long id){
+		EntityManager em = emf.createEntityManager();
+		//hql: hibernate query language
+		Query query = em.createQuery("from Conta where id_cliente='"+id+"'");
+		List<Conta> movimentacoes = query.getResultList();
+		int quantidade  = movimentacoes.size();
+		em.close();
+		return quantidade;
+	}
 }

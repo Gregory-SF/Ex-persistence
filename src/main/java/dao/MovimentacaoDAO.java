@@ -149,9 +149,9 @@ public class MovimentacaoDAO {
 		return saldo;
 	}
 	
-	public double buscarSaldoTipo(String cpf, TransacaoTipo tipo){
+	public double buscarSaldoContaPoupanca(Long idConta){
 		EntityManager em = emf.createEntityManager();
-		Query query = em.createQuery("Select sum(valorOperacao) from Movimentacao where Id_Conta='"+cpf+"' AND tipoTransacao ='"+tipo+"'");
+		Query query = em.createQuery("Select sum(valorOperacao) from Movimentacao where id_conta='"+idConta+"' AND id_conta = (Select id from Conta where tipoConta='POUPANCA')");
 		double saldo = 0.;
 		try {
 			saldo =  Double.parseDouble(query.getSingleResult().toString());

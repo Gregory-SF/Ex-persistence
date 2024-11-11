@@ -16,11 +16,10 @@ public class MovimentacaoTela {
 		Movimentacao movimentacao = new Movimentacao();
 		Conta conta = new Conta();
 		
-		movimentacao.setDescricao("pagar de 13,00 no dia 10/10/24");
-		movimentacao.setTipoTransacao(TransacaoTipo.PIX);
-		movimentacao.setValor(10.);
+		movimentacao.setTipoTransacao(TransacaoTipo.SAQUE);
+		movimentacao.setValor(100.);
 		
-		conta.setId(1L);
+		conta.setId(5L);
 		movimentacao.setConta(conta);
 
 		//Movimentacao contaReceptor = new Movimentacao();

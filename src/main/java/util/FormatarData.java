@@ -28,13 +28,20 @@ public class FormatarData {
 	}
 	
 	/**
-	 * Método para formatar data e horário no formato yyyy-MM-dd HH:mm
+	 * Método para retornar o primeiro dia do próximo mês em Date 
 	 * @param Date
-	 * @return String
+	 * @return Date|
+	 * @throws ParseException 
 	 * **/
-	public static String formatarAnoMesDiaHoraMinuto(Date data) {
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		return format.format(data);
+	public static Date formatarMesPosterior(Date data) throws ParseException {
+		DateFormat anoFormat = new SimpleDateFormat("yyyy");
+		DateFormat mesFormat = new SimpleDateFormat("MM");	
+		if ((int) (Integer.valueOf(mesFormat.format(data)))+1==13) {
+			int ano = (int) (Integer.valueOf(anoFormat.format(data))+1);
+			return formatarStringDate(ano+"-01-01");
+		}
+		int mes = (int) (Integer.valueOf(mesFormat.format(data))+1);
+		return formatarStringDate(anoFormat.format(data)+"-"+mes+"-01");
 	}
 	
 	/**
@@ -45,6 +52,32 @@ public class FormatarData {
 	public static int formatarHora(Date data) {
 		DateFormat format = new SimpleDateFormat("HH");
 		return (int) (Integer.valueOf(format.format(data)));
+	}
+	
+	/**
+	 * Método para formatar mês no formato MM
+	 * @param Date
+	 * @return int
+	 * **/
+	public static int formatarMes(Date data) {
+		DateFormat format = new SimpleDateFormat("MM");
+		return (int) (Integer.valueOf(format.format(data)));
+	}
+	
+	/**
+	 * Método para formatar retornar uma string do mês anterior no formato yyyy-MM
+	 * @param Date
+	 * @return String
+	 * **/
+	public static String formatarMesAnterior(Date data) {
+		DateFormat anoFormat = new SimpleDateFormat("yyyy");
+		DateFormat mesFormat = new SimpleDateFormat("MM");	
+		if ((int) (Integer.valueOf(mesFormat.format(data)))-1==0) {
+			int ano = (int) (Integer.valueOf(anoFormat.format(data))-1);
+			return (ano+"-12");
+		}
+		int mes = (int) (Integer.valueOf(mesFormat.format(data))-1);
+		return (anoFormat.format(data)+"-"+mes);
 	}
 	
 	/**
