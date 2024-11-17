@@ -10,10 +10,10 @@ public class ClienteTela {
 	public static void main(String[] args) {
 		ClienteController controle = new ClienteController();
 		Cliente cliente = new Cliente();
-		cliente.setCpfCliente("125.082.889-93");
+		cliente.setCpfCliente("114.654.149-08");
 		//cliente.setEmail("als@toma.com");
-		cliente.setNomeCliente("Pedro Costa");
-		cliente.setRgCliente("12.345.123-1");
+		cliente.setNomeCliente("Isaque Dias");
+		cliente.setRgCliente("12.345.133-6");
 		//cliente.setTelefone("93293-2314");
 		cliente.setDataCriacao(new Date());
 		

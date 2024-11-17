@@ -6,6 +6,7 @@ import controle.MovimentacaoController;
 import entidade.Conta;
 import entidade.Movimentacao;
 import entidade.TransacaoTipo;
+import util.FormatarData;
 
 public class MovimentacaoTela {
 	
@@ -16,20 +17,17 @@ public class MovimentacaoTela {
 		Movimentacao movimentacao = new Movimentacao();
 		Conta conta = new Conta();
 		
-		movimentacao.setTipoTransacao(TransacaoTipo.SAQUE);
+		movimentacao.setTipoTransacao(TransacaoTipo.DEPOSITO);
 		movimentacao.setValor(100.);
+		movimentacao.setDataTransacao(FormatarData.formatarStringDate("2025-01-01"));
 		
-		conta.setId(5L);
+		conta.setId(7L);
 		movimentacao.setConta(conta);
-
-		//Movimentacao contaReceptor = new Movimentacao();
-		//contaReceptor.setCpfCorrentista("099.992.159-20");
-		//contaReceptor.setNomeCorrentista("Diegogonçalves");
 		
-		controle.inserir(movimentacao);
+		//controle.inserir(movimentacao);
 		//controle.exibirExtratoMensal("123.456.789-09",2);
 		//controle.exibirExtratoPeriodico("123.456.789-09", "2024-10-15","2024-10-18", 2);
-		//controle.transferencia(conta, contaReceptor);
+		//controle.calcularContaPoupanca(movimentacao);
 	}
 	
 }

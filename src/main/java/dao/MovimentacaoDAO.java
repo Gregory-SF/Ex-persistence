@@ -112,7 +112,7 @@ public class MovimentacaoDAO {
 	
 	public List<Movimentacao> buscarPorIdContaAteData(Long idConta, String dataInicial, String dataFinal){
 		EntityManager em = emf.createEntityManager();
-		Query query = em.createQuery("from Movimentacao where id_conta='"+idConta+"' AND dataTransacao BETWEEN '"+dataInicial+"' AND '"+dataFinal+" 23:59:59.999'");
+		Query query = em.createQuery("from Movimentacao where id_conta='"+idConta+"' AND dataTransacao BETWEEN '"+dataInicial+" 00:00:00.000' AND '"+dataFinal+" 23:59:59.999'");
 		List<Movimentacao> movimentacaos = query.getResultList();
 		em.close();
 		return movimentacaos;
@@ -147,16 +147,5 @@ public class MovimentacaoDAO {
 		} catch (Exception e) {}
 		em.close();
 		return saldo;
-	}
-	
-	public double buscarSaldoContaPoupanca(Long idConta){
-		EntityManager em = emf.createEntityManager();
-		Query query = em.createQuery("Select sum(valorOperacao) from Movimentacao where id_conta='"+idConta+"' AND id_conta = (Select id from Conta where tipoConta='POUPANCA')");
-		double saldo = 0.;
-		try {
-			saldo =  Double.parseDouble(query.getSingleResult().toString());
-		} catch (Exception e) {}
-		em.close();
-		return saldo;
-	}
+	}	
 }

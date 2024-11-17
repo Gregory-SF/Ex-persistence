@@ -4,25 +4,30 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import entidade.Cliente;
+import entidade.Movimentacao;
 import servico.ClienteService;
 import servico.ContaService;
 import servico.MovimentacaoService;
 import dao.ClienteDAO;
 import dao.ContaDAO;
 import dao.MovimentacaoDAO;
+import util.CalcularJuros;
 import util.FormatarData;
 import util.ValidacaoCpf;
 
 public class Teste {
 	public static void main(String[] args) throws ParseException {
-		//Cliente cliente = new Cliente();
-		//ContaDAO condao = new ContaDAO();
+		Cliente cliente = new Cliente();
+		ContaDAO condao = new ContaDAO();
 		MovimentacaoDAO movdao = new MovimentacaoDAO();
-		System.out.println(movdao.buscarSaldoContaPoupanca(1L));
-//		MovimentacaoService movser = new MovimentacaoService();
-		System.out.println(movdao.buscarSaldo(1L));
+		Movimentacao mov = new Movimentacao();
+//		System.out.println(movdao.buscarSaldoContaPoupanca(1L));
+		MovimentacaoService movser = new MovimentacaoService();
+//		System.out.println(movdao.buscarSaldo(1L));
 //		cliente.setCpfCliente("121.825.897-37");
 //		if(ValidacaoCpf.validarCpf(cliente.getCpfCliente()));
 //		//cldao.buscarPorCpf(cliente.getCpfCliente());
@@ -43,9 +48,12 @@ public class Teste {
 //		clienteNovo.setEmail("gregory16704@gmail.com");	
 //		clienteNovo.setRgCliente("1234");	
 //		clienteNovo.setTelefone("98765");	
-//		MovimentacaoDAO movdao = new MovimentacaoDAO();
-//		System.out.println(movdao.buscarSaldo(1L));
+		//S;ystem.out.println(movdao.buscarSaldo(1L));
+		//CalcularJuros.JurosCompostos(saldo, 0.2, meses);
 		//cliente.setDataAlteracao(FormatarData.formatarMesAnterior("2024-12-01"));
 		//System.out.println(FormatarData.formatarMesPosterior(data));
+		System.out.println(condao.BuscarTresMesesAntes("2025-01-30"));
+		System.out.println(condao.buscarCredito(7L, condao.BuscarTresMesesAntes("2025-01-30"), "2025-01-30"));
+		
 	}
 }

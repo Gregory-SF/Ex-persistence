@@ -69,15 +69,16 @@ public class FormatarData {
 	 * @param Date
 	 * @return String
 	 * **/
-	public static String formatarMesAnterior(Date data) {
+	public static String formatarTresMesAntes(Date data) {
 		DateFormat anoFormat = new SimpleDateFormat("yyyy");
 		DateFormat mesFormat = new SimpleDateFormat("MM");	
-		if ((int) (Integer.valueOf(mesFormat.format(data)))-1==0) {
+		int mesCalc = (int) (Integer.valueOf(mesFormat.format(data)))-3;
+		if (mesCalc<=0) {
 			int ano = (int) (Integer.valueOf(anoFormat.format(data))-1);
-			return (ano+"-12");
+			return (ano+"-"+(11+mesCalc)+"-01");
 		}
-		int mes = (int) (Integer.valueOf(mesFormat.format(data))-1);
-		return (anoFormat.format(data)+"-"+mes);
+		int mes = (int) (Integer.valueOf(mesFormat.format(data))-3);
+		return (anoFormat.format(data)+"-"+mes+"-01");
 	}
 	
 	/**

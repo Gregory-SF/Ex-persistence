@@ -8,6 +8,7 @@ import java.util.List;
 
 import dao.ContaDAO;
 import dao.MovimentacaoDAO;
+import entidade.ContaTipo;
 import entidade.Movimentacao;
 import entidade.TransacaoTipo;
 import util.CalcularJuros;
@@ -19,7 +20,7 @@ public class MovimentacaoService {
 
 	
 	public Movimentacao cartaoCredito(Movimentacao movimentacao) {
-		if(1==1) throw new Error("Funcão não implementada ainda teehee");
+		if(!calcularCredito(movimentacao)) throw new Error("Valor ultrapassa seu crédito");
 		return dao.inserir(movimentacao);
 	}
 	
@@ -171,19 +172,19 @@ public class MovimentacaoService {
 		}
 	}
 	
-	public Movimentacao calcularContapoupanca(Movimentacao movimentacao) {
-		double saldo = dao.buscarSaldoContaPoupanca(movimentacao.getConta().getId());
-		if(saldo<=0) throw new Error ("Saldo zerado ou negativo. Não é possível calcular rendimento");
-		LocalDate inicio = LocalDate.parse(FormatarData.formatarAnoMesDia(movimentacao.getDataTransacao()));
-		int meses = Period.between(inicio, LocalDate.now()).getMonths();
+	public void depositarContapoupanca(Movimentacao movimentacao, double lucro) {
 		Movimentacao rendimento = new Movimentacao();
-		rendimento.setValor(CalcularJuros.JurosCompostos(saldo, 0.2, meses));
+		rendimento.setValor(lucro);
 		rendimento.setConta(movimentacao.getConta());
 		rendimento.setDataTransacao(new Date());
 		rendimento.setDescricao("Rendimento dos juros compostos da Conta Poupança");
 		rendimento.setTipoTransacao(TransacaoTipo.DEPOSITO);
-		return dao.inserir(movimentacao);
-		
+		System.out.println("Valor do rendimento: R$ "+rendimento.getValor());
+		//return dao.inserir(movimentacao);
+	}
+	
+	private boolean calcularCredito(Movimentacao movimentacao) {
+		return (contaDAO.buscarCredito(movimentacao.getConta().getId(), contaDAO.BuscarTresMesesAntes(FormatarData.formatarAnoMes(new Date())), FormatarData.formatarAnoMes(new Date()))<=movimentacao.getValor())? true:false;
 	}
 	
 //	public void testeFraude(Movimentacao conta) {

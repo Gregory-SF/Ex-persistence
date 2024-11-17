@@ -18,14 +18,14 @@ public class ContaTela {
 		conta.setContaAtiva(false);
 		conta.setDataCriacao(new Date());
 		conta.setDataAlteracao(new Date());
-		conta.setNumeroConta("4");
-		conta.setTipoConta(ContaTipo.SALARIO);
-		cliente.setCpfCliente("113.186.059-46");
+		conta.setNumeroConta("5");
+		conta.setTipoConta(ContaTipo.POUPANCA);
+		cliente.setCpfCliente("114.654.149-08");
 //		cliente.setNomeCliente("Laryssa");
 //		cliente.setRgCliente("11.555.000-1");
 		conta.setCliente(cliente);
 		
-		
-		controle.inserir(conta);		
+		System.out.println(controle.calcularCredito(conta));
+		//controle.inserir(conta);		
 	}
 }

@@ -1,5 +1,7 @@
 package controle;
 
+import java.text.ParseException;
+
 import entidade.Conta;
 import servico.ContaService;
 
@@ -19,4 +21,14 @@ public class ContaController {
 		service.excluir(conta);
 	}
 	
+	public double calcularPoupanca(Conta conta) {
+		return service.calcularContapoupanca(conta);
+	}
+	
+	public double calcularCredito(Conta conta) {
+		try {
+			return service.calcularCredito(conta);
+		} catch (ParseException e) {}
+		throw new Error("Houve um erro");
+	}
 }

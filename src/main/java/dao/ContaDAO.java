@@ -83,9 +83,39 @@ public class ContaDAO {
 		EntityManager em = emf.createEntityManager();
 		//hql: hibernate query language
 		Query query = em.createQuery("from Conta where id_cliente='"+id+"'");
-		List<Conta> movimentacoes = query.getResultList();
-		int quantidade  = movimentacoes.size();
+		List<Conta> contas = query.getResultList();
+		int quantidade  = contas.size();
 		em.close();
 		return quantidade;
+	}
+	
+	public double buscarSaldoContaPoupanca(Long idConta, String data){
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createQuery("Select sum(valorOperacao) from Movimentacao where id_conta='"+idConta+"' and dataTransacao LIKE '"+data+"%'");
+		double saldo = 0.;
+		try {
+			saldo =  Double.parseDouble(query.getSingleResult().toString());
+		} catch (Exception e) {}
+		em.close();
+		return saldo;
+	}
+	
+	public String BuscarTresMesesAntes(String data){
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createNativeQuery("select subdate(adddate(last_day('"+data+"'), interval 1 day),interval 3 month)");
+		String dataAntiga = query.getSingleResult().toString();
+		em.close();
+		return dataAntiga;
+	}
+	
+	public double buscarCredito(Long idConta, String dataInicial, String dataFinal){
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createQuery("Select sum(valorOperacao) from Movimentacao where id_conta='"+idConta+"' AND dataTransacao BETWEEN '"+dataInicial+" 00:00:00.000' AND '"+dataFinal+" 23:59:59.999'");
+		double saldoMedio = 0.;
+		try {
+			saldoMedio = Double.parseDouble(query.getSingleResult().toString());
+		} catch (Exception e) {}
+		em.close();
+		return saldoMedio/3;
 	}
 }

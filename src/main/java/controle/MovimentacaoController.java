@@ -45,7 +45,8 @@ public class MovimentacaoController {
 		service.ExibirExtratoPeriodico(id, dataInicial, dataFinal, op);
 	}
 	
-	public Movimentacao calcularContaPoupanca(Movimentacao movimentacao) {
-		return service.calcularContapoupanca(movimentacao);
+	public void calcularContaPoupanca(Movimentacao movimentacao) {
+		double lucro = conService.calcularContapoupanca(movimentacao.getConta());
+		service.depositarContapoupanca(movimentacao, lucro);
 	}
 }
