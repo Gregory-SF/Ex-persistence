@@ -1,17 +1,13 @@
 package servico;
 
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.Date;
 import java.util.List;
 
 import dao.ContaDAO;
 import dao.MovimentacaoDAO;
-import entidade.ContaTipo;
 import entidade.Movimentacao;
 import entidade.TransacaoTipo;
-import util.CalcularJuros;
 import util.FormatarData;
 
 public class MovimentacaoService {
@@ -75,7 +71,7 @@ public class MovimentacaoService {
 		if(!buscarPorId(movimentacao.getConta().getId(), movimentacao)) throw new Error ("Não existe essa conta");
 		validarSaldo(movimentacao);
 		validarLimiteOperacoes(movimentacao);
-		//if(contaDAO.verificarContasPorCliente(movimentacao.getConta().getCliente().getId())>3) throw new Error();
+		if(contaDAO.verificarContasPorCliente(movimentacao.getConta().getCliente().getId())>3) throw new Error();
 		movimentacao.setDescricao(movimentacao.getTipoTransacao()+" de R$"+movimentacao.getValor());
 	}
 	

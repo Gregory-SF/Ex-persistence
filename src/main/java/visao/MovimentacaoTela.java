@@ -1,12 +1,12 @@
 package visao;
 
 import java.text.ParseException;
+import java.util.Date;
 
 import controle.MovimentacaoController;
 import entidade.Conta;
 import entidade.Movimentacao;
 import entidade.TransacaoTipo;
-import util.FormatarData;
 
 public class MovimentacaoTela {
 	
@@ -19,14 +19,12 @@ public class MovimentacaoTela {
 		
 		movimentacao.setTipoTransacao(TransacaoTipo.DEPOSITO);
 		movimentacao.setValor(100.);
-		movimentacao.setDataTransacao(FormatarData.formatarStringDate("2025-01-01"));
+		movimentacao.setDataTransacao(new Date());
 		
-		conta.setId(7L);
+		conta.setId(2L);
 		movimentacao.setConta(conta);
 		
-		//controle.inserir(movimentacao);
-		//controle.exibirExtratoMensal("123.456.789-09",2);
-		//controle.exibirExtratoPeriodico("123.456.789-09", "2024-10-15","2024-10-18", 2);
+		controle.inserir(movimentacao);
 		//controle.calcularContaPoupanca(movimentacao);
 	}
 	

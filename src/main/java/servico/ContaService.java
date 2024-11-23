@@ -9,8 +9,6 @@ import dao.ClienteDAO;
 import dao.ContaDAO;
 import entidade.Conta;
 import entidade.ContaTipo;
-import entidade.Movimentacao;
-import entidade.TransacaoTipo;
 import util.CalcularJuros;
 import util.FormatarData;
 
@@ -27,7 +25,8 @@ public class ContaService {
 	}
 	
 	public Conta alterar(Conta conta) {
-		return dao.alterar(validarDadosIguaisConta(conta),conta);
+		if(!validarDadosIguaisCliente(conta)) throw new Error("Não existe um cliente com essas informações");
+		return dao.alterar(conta);
 	}
 	
 	public void excluir(Conta conta) {
@@ -44,7 +43,6 @@ public class ContaService {
 		try {
 			conta.setCliente(clientedao.buscarPorCpf(conta.getCliente().getCpfCliente()));
 			if(!conta.getCliente().equals(clientedao.buscarPorCpf(conta.getCliente().getCpfCliente()))) return false;
-//			conta.setCliente(clientedao.buscarPorCpf(conta.getCliente().getCpfCliente()));
 			return true;
 		} catch (Exception e) {
 			return false;

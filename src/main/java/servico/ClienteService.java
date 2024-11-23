@@ -17,7 +17,8 @@ public class ClienteService {
 	
 	public Cliente alterar(Cliente cliente) {
 		cliente.setDataAlteracao(new Date());
-		return dao.alterar(buscarIdPeloCpf(cliente),cliente);
+		cliente.setId(buscarIdPeloCpf(cliente));
+		return dao.alterar(cliente);
 	}
 	
 	public void excluir(Cliente cliente) {

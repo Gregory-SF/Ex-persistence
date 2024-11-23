@@ -19,13 +19,12 @@ public class ContaTela {
 		conta.setDataCriacao(new Date());
 		conta.setDataAlteracao(new Date());
 		conta.setNumeroConta("5");
-		conta.setTipoConta(ContaTipo.POUPANCA);
+		conta.setTipoConta(ContaTipo.CORRENTE);
 		cliente.setCpfCliente("114.654.149-08");
-//		cliente.setNomeCliente("Laryssa");
-//		cliente.setRgCliente("11.555.000-1");
 		conta.setCliente(cliente);
-		
-		System.out.println(controle.calcularCredito(conta));
-		//controle.inserir(conta);		
+		controle.inserir(conta);		
+		//controle.exibirExtratoMensal("123.456.789-09",2);
+		//controle.exibirExtratoPeriodico("123.456.789-09", "2024-10-15","2024-10-18", 2);
+		//System.out.println(controle.calcularCredito(conta));
 	}
 }
