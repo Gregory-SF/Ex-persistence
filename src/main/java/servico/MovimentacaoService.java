@@ -4,16 +4,21 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+import dao.AbstractDAO;
 import dao.ContaDAO;
 import dao.MovimentacaoDAO;
 import entidade.Movimentacao;
 import entidade.TransacaoTipo;
 import util.FormatarData;
 
-public class MovimentacaoService {
+public class MovimentacaoService implements BaseService<Movimentacao>{
 	MovimentacaoDAO dao = new MovimentacaoDAO();
 	ContaDAO contaDAO = new ContaDAO();
-
+		
+	@Override
+	public AbstractDAO<Movimentacao> getDAO() {
+		return dao;
+	}
 	
 	public Movimentacao cartaoCredito(Movimentacao movimentacao) {
 		if(!calcularCredito(movimentacao)) throw new Error("Valor ultrapassa seu crédito");
@@ -50,6 +55,17 @@ public class MovimentacaoService {
 		validarCompleto(movimentacao);
 		validarSaque(movimentacao);
 		return dao.inserir(movimentacao);
+	}
+	
+	@Override
+	public Movimentacao alterar(Movimentacao movimentacao) {
+		validarCompleto(movimentacao);
+		return dao.alterar(movimentacao);
+	}
+	
+	@Override
+	public void excluir(Long id) {
+		dao.excluir(id);
 	}
 	
 //	public Movimentacao transferencia(Movimentacao pagador, Movimentacao destinatario) {

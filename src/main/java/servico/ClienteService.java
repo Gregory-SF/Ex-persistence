@@ -2,19 +2,27 @@ package servico;
 
 import java.util.Date;
 
+import dao.AbstractDAO;
 import dao.ClienteDAO;
 import entidade.Cliente;
 import util.ValidacaoCpf;
 
-public class ClienteService {
+public class ClienteService implements BaseService<Cliente>{
 	ClienteDAO dao = new ClienteDAO();
 	
+	@Override
+	public AbstractDAO<Cliente> getDAO(){
+		return dao;
+	}
+	
+	@Override
 	public Cliente inserir(Cliente cliente) {
 		if(!ValidacaoCpf.validarCpf(cliente.getCpfCliente())) throw new Error("CPF inválido");
 		cliente.setDataCriacao(new Date());
 		return dao.inserir(cliente);
 	}
 	
+	@Override
 	public Cliente alterar(Cliente cliente) {
 		cliente.setDataAlteracao(new Date());
 		cliente.setId(buscarIdPeloCpf(cliente));

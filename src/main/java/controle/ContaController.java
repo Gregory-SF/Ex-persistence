@@ -20,7 +20,7 @@ public class ContaController {
 	}
 	
 	public void excluir (Conta conta) {
-		service.excluir(conta);
+		service.excluir(conta.getId());
 	}
 	
 	public double calcularPoupanca(Conta conta) {

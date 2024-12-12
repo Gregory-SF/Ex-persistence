@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Date;
 
+import dao.AbstractDAO;
 import dao.ClienteDAO;
 import dao.ContaDAO;
 import entidade.Conta;
@@ -12,11 +13,16 @@ import entidade.ContaTipo;
 import util.CalcularJuros;
 import util.FormatarData;
 
-public class ContaService {
+public class ContaService implements BaseService<Conta>{
 	ContaDAO dao = new ContaDAO();
 	ClienteDAO clientedao = new ClienteDAO();
 
-
+	@Override
+	public AbstractDAO<Conta> getDAO() {
+		return dao;
+	}
+	
+	@Override
 	public Conta inserir(Conta conta) {
 		conta.setContaAtiva(true);
 		if(!validarDadosIguaisCliente(conta)) criarCliente(conta);
@@ -24,13 +30,15 @@ public class ContaService {
 		return dao.inserir(conta);
 	}
 	
+	@Override
 	public Conta alterar(Conta conta) {
 		if(!validarDadosIguaisCliente(conta)) throw new Error("Não existe um cliente com essas informações");
 		return dao.alterar(conta);
 	}
 	
-	public void excluir(Conta conta) {
-		if(!conta.isContaAtiva()) dao.excluir(validarDadosIguaisConta(conta));
+	@Override
+	public void excluir(Long id) {
+		if(!dao.buscarPorId(id).isContaAtiva()) dao.excluir(validarDadosIguaisConta(dao.buscarPorId(id)));
 	}	
 	
 	private Long validarDadosIguaisConta(Conta conta) {

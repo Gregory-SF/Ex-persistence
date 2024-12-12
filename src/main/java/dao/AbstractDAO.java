@@ -33,7 +33,8 @@ public abstract class AbstractDAO<T> {
 	}
 	
 	/*
-	 * Para essa função funcionar, o id precisa ser da conta a ser alterada, mas as informações serão as novas
+	 * Para essa função funcionar, o id precisa ser da conta a ser alterada, mas as informações serão 
+	 * as novas e o id o mesmo
 	 * */
 	public T alterar(T object) {
 		EntityManager em = getEntityManager();
