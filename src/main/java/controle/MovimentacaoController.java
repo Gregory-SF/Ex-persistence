@@ -29,7 +29,7 @@ public class MovimentacaoController {
 	}
 	
 	public void calcularContaPoupanca(Movimentacao movimentacao) {
-		double lucro = conService.calcularContapoupanca(movimentacao.getConta());
-		service.depositarContapoupanca(movimentacao, lucro);
+		double lucro = conService.calcularContaPoupanca(movimentacao.getConta());
+		service.depositarContaPoupanca(movimentacao, lucro);
 	}
 }

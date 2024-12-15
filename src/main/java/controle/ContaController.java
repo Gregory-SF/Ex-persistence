@@ -24,7 +24,7 @@ public class ContaController {
 	}
 	
 	public double calcularPoupanca(Conta conta) {
-		return service.calcularContapoupanca(conta);
+		return service.calcularContaPoupanca(conta);
 	}
 	
 	public double calcularCredito(Conta conta) {

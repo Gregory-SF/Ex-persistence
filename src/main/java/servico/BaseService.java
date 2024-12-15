@@ -8,10 +8,10 @@ public interface BaseService<T> {
 	default T inserir(T entidade) {
 		return getDAO().inserir(entidade);
 	}
+	
 	T alterar(T entidade);
+	
 	default void excluir(Long id) {
 		getDAO().excluir(id);
-	};
-
-
+	}
 }

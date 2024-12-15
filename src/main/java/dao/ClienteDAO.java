@@ -1,5 +1,4 @@
 package dao;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -16,8 +15,8 @@ public class ClienteDAO extends AbstractDAO<Cliente> {
 	public Cliente buscarPorCpf(String cpf){
 		EntityManager em = getEntityManager();
 //		try {
-			Query query = em.createQuery("from Cliente where cpfCliente ='"+cpf+"'");
-			Cliente cliente = (Cliente) query.getSingleResult();
+			Query query = em.createQuery("from Cliente where cpfCliente = :cpf");
+			Cliente cliente = (Cliente) query.setParameter("cpf", cpf).getSingleResult();
 			em.close();
 			return cliente;			
 //		} catch (Exception e) {

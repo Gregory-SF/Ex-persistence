@@ -65,23 +65,6 @@ public class FormatarData {
 	}
 	
 	/**
-	 * Método para formatar retornar uma string do mês anterior no formato yyyy-MM
-	 * @param Date
-	 * @return String
-	 * **/
-	public static String formatarTresMesAntes(Date data) {
-		DateFormat anoFormat = new SimpleDateFormat("yyyy");
-		DateFormat mesFormat = new SimpleDateFormat("MM");	
-		int mesCalc = (int) (Integer.valueOf(mesFormat.format(data)))-3;
-		if (mesCalc<=0) {
-			int ano = (int) (Integer.valueOf(anoFormat.format(data))-1);
-			return (ano+"-"+(11+mesCalc)+"-01");
-		}
-		int mes = (int) (Integer.valueOf(mesFormat.format(data))-3);
-		return (anoFormat.format(data)+"-"+mes+"-01");
-	}
-	
-	/**
 	 * Método para formatar String no formato yyyy-MM-dd para Date
 	 * @param String 
 	 * @return Date

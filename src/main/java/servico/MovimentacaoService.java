@@ -93,7 +93,7 @@ public class MovimentacaoService implements BaseService<Movimentacao>{
 	
 	private void validarLimiteOperacoes(Movimentacao movimentacao) {
 		String dataFormatada = FormatarData.formatarAnoMesDia(movimentacao.getDataTransacao());
-		if(dao.buscarPorIdData(movimentacao.getConta().getId(),dataFormatada).size()==10) throw new Error("Limite máximo de 10 transações atingido");
+		if(dao.buscarPorIdContaData(movimentacao.getConta().getId(),dataFormatada).size()==10) throw new Error("Limite máximo de 10 transações atingido");
 	}
 	
 	private void validarSaldo(Movimentacao movimentacao) {
@@ -134,7 +134,7 @@ public class MovimentacaoService implements BaseService<Movimentacao>{
 	 * **/
 	public void ExibirExtratoMensal(Long id, int op) {
 		String dataFormatada = FormatarData.formatarAnoMes(new Date());
-		List<Movimentacao> movimentacoes = dao.buscarPorIdData(id,dataFormatada);
+		List<Movimentacao> movimentacoes = dao.buscarPorIdContaData(id,dataFormatada);
 		switch (op) {
 		case 1:
 			for (Movimentacao movimentacao : movimentacoes) {
@@ -184,7 +184,7 @@ public class MovimentacaoService implements BaseService<Movimentacao>{
 		}
 	}
 	
-	public void depositarContapoupanca(Movimentacao movimentacao, double lucro) {
+	public void depositarContaPoupanca(Movimentacao movimentacao, double lucro) {
 		Movimentacao rendimento = new Movimentacao();
 		rendimento.setValor(lucro);
 		rendimento.setConta(movimentacao.getConta());
@@ -196,7 +196,7 @@ public class MovimentacaoService implements BaseService<Movimentacao>{
 	}
 	
 	private boolean calcularCredito(Movimentacao movimentacao) {
-		return (contaDAO.buscarCredito(movimentacao.getConta().getId(), contaDAO.BuscarTresMesesAntes(FormatarData.formatarAnoMes(new Date())), FormatarData.formatarAnoMes(new Date()))<=movimentacao.getValor())? true:false;
+		return (contaDAO.buscarCredito(movimentacao.getConta().getId(), contaDAO.BuscarTresMesesAntes(FormatarData.formatarAnoMesDia(new Date())), contaDAO.BuscarUltimoDiaMesPassado(FormatarData.formatarAnoMesDia(new Date())))<=movimentacao.getValor())? true:false;
 	}
 	
 //	public void testeFraude(Movimentacao conta) {

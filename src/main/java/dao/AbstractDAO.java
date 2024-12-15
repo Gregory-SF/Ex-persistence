@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public abstract class AbstractDAO<T> {
 	
@@ -60,8 +61,8 @@ public abstract class AbstractDAO<T> {
 	public List<T> listarTodos(){
 		EntityManager em = getEntityManager();
 		try {
-			List<T> clientes = em.createQuery("from '"+nomeClasse()+"'").getResultList();
-			return clientes;
+			List<T> entidades = em.createQuery("from '"+nomeClasse()+"'").getResultList();
+			return entidades;
 		} finally {
 			em.close();
 		}
@@ -70,11 +71,33 @@ public abstract class AbstractDAO<T> {
 	public T buscarPorId(Long id) {
 		EntityManager em = getEntityManager();
 		try {
-			T cliente = em.find(entityClass, id);
-			return cliente;		
+			T classe = em.find(entityClass, id);
+			return classe;		
 		} finally {
 			em.close();
 		}
+	}
+	
+	
+	/**
+	 * Função que retorna quatro meses meses antes, ou seja, últimos três meses excluindo o mês atual
+	 * @param String data
+	 * @return String data 3 meses antes
+	 * */
+	public String BuscarTresMesesAntes(String data){
+		EntityManager em = getEntityManager();
+		Query query = em.createNativeQuery("select subdate(adddate(last_day(:data),interval 1 day),interval 5 month)").setParameter("data", data);
+		String dataAntiga = query.getSingleResult().toString();
+		em.close();
+		return dataAntiga;
+	}
+	
+	public String BuscarUltimoDiaMesPassado(String data){
+		EntityManager em = getEntityManager();
+		Query query = em.createNativeQuery("select last_day(subdate(:data, interval 1 month))").setParameter("data", data);
+		String dataAntiga = query.getSingleResult().toString();
+		em.close();
+		return dataAntiga;
 	}
 	
 	private String nomeClasse() {

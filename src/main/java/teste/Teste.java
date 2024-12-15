@@ -22,11 +22,26 @@ import util.ValidacaoCpf;
 public class Teste {
 	public static void main(String[] args) throws ParseException {
 		Cliente cliente = new Cliente();
+		Movimentacao movimentacao = new Movimentacao();
+		ContaService conSer = new ContaService();
+		MovimentacaoService movSer = new MovimentacaoService();
 		ContaDAO condao = new ContaDAO();
 		MovimentacaoDAO movdao = new MovimentacaoDAO();
-		Movimentacao mov = new Movimentacao();
+		
+//		System.out.println(condao.BuscarUltimoDiaMesPassado("2024-11-21"));
+//		System.out.println(condao.BuscarTresMesesAntes("2024-11-30"));
+		System.out.println(conSer.calcularCredito(condao.buscarPorId(7l)));
+//		System.out.println(condao.buscarCredito(7L, "2024-11-01", "2025-01"));
+//		System.out.println(condao.BuscarTresMesesAntes("2024-12-15"));
+//		movSer.ExibirExtratoPeriodico(7L,"2024-11-01", "2025-02-01",1);
+//		System.out.println(condao.buscarCredito(7L, "2024-11-01", "2025-02-01"));
+//		System.out.println(conSer.calcularCredito(condao.buscarPorId(7L)));
+//		System.out.println(conser.calcularContapoupanca(condao.buscarPorId(7L)));
+//		System.out.println(movimentacao));
+//		for (Movimentacao mov: movdao.buscarPorIdConta(2L)) {
+//			System.out.println(mov.toString());
+//		}
 //		System.out.println(movdao.buscarSaldoContaPoupanca(1L));
-		MovimentacaoService movser = new MovimentacaoService();
 //		System.out.println(movdao.buscarSaldo(1L));
 //		cliente.setCpfCliente("121.825.897-37");
 //		if(ValidacaoCpf.validarCpf(cliente.getCpfCliente()));
@@ -52,8 +67,8 @@ public class Teste {
 		//CalcularJuros.JurosCompostos(saldo, 0.2, meses);
 		//cliente.setDataAlteracao(FormatarData.formatarMesAnterior("2024-12-01"));
 		//System.out.println(FormatarData.formatarMesPosterior(data));
-		System.out.println(condao.BuscarTresMesesAntes("2025-01-30"));
-		System.out.println(condao.buscarCredito(7L, condao.BuscarTresMesesAntes("2025-01-30"), "2025-01-30"));
+//		System.out.println(condao.BuscarTresMesesAntes("2025-01-30"));
+//		System.out.println(condao.buscarCredito(7L, condao.BuscarTresMesesAntes("2025-01-30"), "2025-01-30"));
 		
 	}
 }

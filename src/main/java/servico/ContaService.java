@@ -68,7 +68,7 @@ public class ContaService implements BaseService<Conta>{
 		}
 	}
 	
-	public double calcularContapoupanca(Conta conta) {
+	public double calcularContaPoupanca(Conta conta) {
 		if(conta.getTipoConta()!=ContaTipo.POUPANCA) throw new Error ("Não foi inserido uma conta poupança");
 		String data = FormatarData.formatarAnoMes(new Date());
 		double saldo = dao.buscarSaldoContaPoupanca(conta.getId(),data);
@@ -79,8 +79,9 @@ public class ContaService implements BaseService<Conta>{
 	}
 	
 	public double calcularCredito(Conta conta) throws ParseException {
-		String datainicial = dao.BuscarTresMesesAntes(FormatarData.formatarAnoMes(FormatarData.formatarStringDate("2025-01-30")));
-		double credito = dao.buscarCredito(conta.getId(), datainicial, FormatarData.formatarAnoMes(new Date()));
+		String datainicial = dao.BuscarTresMesesAntes(FormatarData.formatarAnoMesDia(new Date()));
+		System.out.println(datainicial);
+		double credito = dao.buscarCredito(conta.getId(), datainicial, dao.BuscarUltimoDiaMesPassado(FormatarData.formatarAnoMesDia(new Date())));
 		return credito;
 	}
 }
