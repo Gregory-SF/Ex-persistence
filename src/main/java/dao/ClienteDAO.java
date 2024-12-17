@@ -11,17 +11,16 @@ public class ClienteDAO extends AbstractDAO<Cliente> {
 		super(Cliente.class);
 	}
 	
-	//verificar com o prof se eu posso tratar os erros do dao no própio dao
 	public Cliente buscarPorCpf(String cpf){
 		EntityManager em = getEntityManager();
-//		try {
+		try {
 			Query query = em.createQuery("from Cliente where cpfCliente = :cpf");
 			Cliente cliente = (Cliente) query.setParameter("cpf", cpf).getSingleResult();
 			em.close();
 			return cliente;			
-//		} catch (Exception e) {
-//			throw new Error("Não existe cliente com esse cpf");
-//		}
+		} catch (Exception e) {
+			throw new Error("Não existe cliente com esse cpf");
+		}
 	}
 	
 }

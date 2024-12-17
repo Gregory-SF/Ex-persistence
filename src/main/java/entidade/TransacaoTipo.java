@@ -5,6 +5,7 @@ public enum TransacaoTipo {
 	CARTAO_DE_DEBITO,
 	DEPOSITO,
 	PAGAMENTO,
+	TRANSFERENCIA,
 	PIX,
 	SAQUE;
 }

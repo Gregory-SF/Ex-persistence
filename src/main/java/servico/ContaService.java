@@ -69,13 +69,25 @@ public class ContaService implements BaseService<Conta>{
 	}
 	
 	public double calcularContaPoupanca(Conta conta) {
+		double saldo = validarContaPoupança(conta);
+		LocalDate inicio = LocalDate.parse(FormatarData.formatarAnoMesDia(conta.getDataCriacao()));
+		int meses = Period.between(inicio, LocalDate.now()).getMonths();
+		return CalcularJuros.JurosCompostos(saldo, 0.002, meses);
+	}
+	
+	
+	/** Função que valida a Conta Poupança e retorna o saldo
+	 * 
+	 * @param Conta
+	 * @Returns double saldo
+	 * 
+	 * */
+	private double validarContaPoupança(Conta conta) {
 		if(conta.getTipoConta()!=ContaTipo.POUPANCA) throw new Error ("Não foi inserido uma conta poupança");
 		String data = FormatarData.formatarAnoMes(new Date());
 		double saldo = dao.buscarSaldoContaPoupanca(conta.getId(),data);
 		if(saldo<=0) throw new Error ("Saldo zerado ou negativo. Não é possível calcular rendimento");
-		LocalDate inicio = LocalDate.parse(FormatarData.formatarAnoMesDia(conta.getDataCriacao()));
-		int meses = Period.between(inicio, LocalDate.now()).getMonths();
-		return CalcularJuros.JurosCompostos(saldo, 0.002, meses);
+		return saldo;
 	}
 	
 	public double calcularCredito(Conta conta) throws ParseException {

@@ -68,19 +68,19 @@ public class MovimentacaoService implements BaseService<Movimentacao>{
 		dao.excluir(id);
 	}
 	
-//	public Movimentacao transferencia(Movimentacao pagador, Movimentacao destinatario) {
-//	if(pagador.getTipoTransacao()==TransacaoTipo.TRANSFERENCIA) {
-//		//pagador.setTipoTransacao("Pagamento");
-//		validarCompleto(pagador);
-//		destinatario.setTipoTransacao(TransacaoTipo.DEPOSITO);
-//		destinatario.setValor(Math.abs(pagador.getValor()));
-//	}
-//	else throw new Error ("Tipo de operação inválido");
-//	validarCompleto(destinatario);
-//	dao.inserir(pagador);
-//	return dao.inserir(destinatario);
-//	
-//}
+	public Movimentacao transferencia(Movimentacao pagador, Movimentacao destinatario) {
+	if(pagador.getTipoTransacao()==TransacaoTipo.TRANSFERENCIA) {
+		pagador.setTipoTransacao(TransacaoTipo.PAGAMENTO);
+		validarCompleto(pagador);
+		destinatario.setTipoTransacao(TransacaoTipo.DEPOSITO);
+		destinatario.setValor(Math.abs(pagador.getValor()));
+	}
+	else throw new Error ("Tipo de operação inválido");
+	validarCompleto(destinatario);
+	dao.inserir(pagador);
+	return dao.inserir(destinatario);
+	
+}
 	
 	private void validarCompleto(Movimentacao movimentacao) {
 		if(movimentacao.getValor()==0) throw new Error("Valor não pode ser nulo");
@@ -180,7 +180,6 @@ public class MovimentacaoService implements BaseService<Movimentacao>{
 		}
 		catch(Exception e) {
 			throw new Error ("Conta inexistente");
-			//throw new Exception("Conta não existe");
 		}
 	}
 	

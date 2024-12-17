@@ -20,6 +20,10 @@ import util.FormatarData;
 import util.ValidacaoCpf;
 
 public class Teste {
+	/**
+	 * @param args
+	 * @throws ParseException
+	 */
 	public static void main(String[] args) throws ParseException {
 		Cliente cliente = new Cliente();
 		Movimentacao movimentacao = new Movimentacao();
@@ -28,9 +32,12 @@ public class Teste {
 		ContaDAO condao = new ContaDAO();
 		MovimentacaoDAO movdao = new MovimentacaoDAO();
 		
+		
+		movSer.ExibirExtratoMensal(8L, 1);
+//		movSer.ExibirExtratoPeriodico(4L, "2024-08-01", "2025-01-30" ,1);
 //		System.out.println(condao.BuscarUltimoDiaMesPassado("2024-11-21"));
 //		System.out.println(condao.BuscarTresMesesAntes("2024-11-30"));
-		System.out.println(conSer.calcularCredito(condao.buscarPorId(7l)));
+//		System.out.println(conSer.calcularCredito(condao.buscarPorId(7l)));
 //		System.out.println(condao.buscarCredito(7L, "2024-11-01", "2025-01"));
 //		System.out.println(condao.BuscarTresMesesAntes("2024-12-15"));
 //		movSer.ExibirExtratoPeriodico(7L,"2024-11-01", "2025-02-01",1);
